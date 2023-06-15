@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Convertidor="clr-namespace:PM2E10704.Converter" 
+             x:Class="PM2E10704.Views.ListLugares"
+             Title="Site Visitor App">
+    <!--se declara recurso de pagina que se usa con la clase convertidor que creamos en el contenpage-->
+    <ContentPage.Resources>
+        <!--recurso de diccionario-->
+        <ResourceDictionary>
+            <!--se usa para disparar la funcion que ya tenemos-->
+            <Convertidor:ByteArrayToImage x:Key="ByteToImage"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="AliceBlue">
+            <Frame BackgroundColor="#a18594"  Padding="20" CornerRadius="0">
+                <Label Grid.Column="1" 
+               Text="Lista de Lugares" 
+               HorizontalTextAlignment="Center" 
+               TextColor="White" 
+               FontSize="20" 
+               FontAttributes="Bold"/>
+            </Frame>
+            <ListView x:Name="Lista" SelectionMode="Single" Margin="20" ItemSelected="Lista_ItemSelected">
+                <!--elemeto tocado para usar en cualquier momento-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <!--se declaran menus-->
+                                <!--<MenuItem x:Name="IrMapa" Clicked="IrMapa_Clicked"  CommandParameter="{Binding .}" Text="Ir a mapa" />-->
+                                <!--<MenuItem x:Name="Eliminar" Clicked="Eliminar_Clicked" CommandParameter="{Binding .}" Text="Eliminar" IsDestructive="True"/> -->
+                            </ViewCell.ContextActions>
+                            <Grid Margin="5">
+                                <Label Grid.Column="0" Text="{Binding id}"/>
+                                <!-- <Label Grid.Column="1" Text="{Binding latitud}"/> -->
+                                <!-- <Label Grid.Column="3" Text="{Binding longitud}"/> -->
+                                <Label Grid.Column="1" Text="{Binding descripcion}"/>
+                                <Image Source="{Binding foto, Converter={StaticResource ByteToImage}}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <FlexLayout JustifyContent="Center">
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Eliminar Casa" 
+                        x:Name="btnDel" 
+                        Clicked="Eliminar_Clicked" 
+                        BackgroundColor="#a18594"
+                        CornerRadius="15" 
+                        Margin="10"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        />
+
+                    <Button Text="Ver Mapa" 
+                        x:Name="btnMapa" 
+                        Clicked="IrMapa_Clicked" 
+                        BackgroundColor="#a18594"
+                        CornerRadius="15" 
+                        Margin="10"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        />
+                </StackLayout>
+            </FlexLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
